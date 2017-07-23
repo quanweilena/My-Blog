@@ -1,0 +1,29 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "MEAN stack web app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quanweilena/My-Blog.git"
+  },
+  "keywords": [
+    "MEAN",
+    "stack",
+    "Angular",
+    "2"
+  ],
+  "author": "Dan Zhou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quanweilena/My-Blog/issues"
+  },
+  "homepage": "https://github.com/quanweilena/My-Blog#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "mongoose": "^4.10.8"
+  }
+}
