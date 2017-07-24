@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,9 +11,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   form: FormGroup;
+  message;
+  messageClass;
+  processing = false;
+  usernameValid;
+  usernameMessage;
+  emailValid;
+  emailMessage;
 
   constructor(
-  	private formBuilder: FormBuilder
+  	private formBuilder: FormBuilder, 
+    private authservice: AuthService,
+    private router: Router
   	){ 
   		this.createForm()
   }
@@ -40,6 +51,20 @@ export class RegisterComponent implements OnInit {
   	}, { validator: this.matchingPasswords('password', 'confirm')
   	})
   };
+
+  disableForm(){
+    this.form.controls['username'].disable();
+    this.form.controls['email'].disable();
+    this.form.controls['password'].disable();
+    this.form.controls['confirm'].disable();
+  }
+
+  enableForm() {
+    this.form.controls['username'].enable();
+    this.form.controls['email'].enable();
+    this.form.controls['password'].enable();
+    this.form.controls['confirm'].enable();
+  }
 
   validateUsername(controls) {
   	const regExp = new RegExp(/^[a-zA-Z0-9]+$/);
@@ -79,7 +104,52 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegisterSubmit() {
-  	console.log('form submitted');
+    this.processing = true;
+    this.disableForm();
+    const user = {
+      username: this.form.get('username').value,
+      email: this.form.get('email').value,
+      password: this.form.get('password').value
+    }
+
+    this.authservice.registerUser(user).subscribe(data => {
+      if (!data.success){
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = false;
+        this.enableForm();
+      } else{
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000)   // After register, redirect after 2s
+      }
+    });
+  };
+
+  checkUsername() {
+    this.authservice.checkUsername(this.form.get('username').value).subscribe(data => {
+      if (!data.success) {
+        this.usernameValid = false;
+        this.usernameMessage = data.message;
+      } else {
+        this.usernameValid = true;
+        this.usernameMessage = data.message;
+      }
+    });
+  }
+
+  checkEmail() {
+    this.authservice.checkEmail(this.form.get('email').value).subscribe(data => {
+      if (!data.success) {
+        this.emailValid = false;
+        this.emailMessage = data.message;
+      } else {
+        this.emailValid = true;
+        this.emailMessage = data.message;
+      }
+    });
   }
 
   ngOnInit() {

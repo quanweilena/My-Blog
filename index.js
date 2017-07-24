@@ -1,15 +1,16 @@
-/*  ==================
+/*  ========================
 	Import Node Modules
-===================== */
+============================ */
 
 const express = require('express');		// Fast, unopinionated, minimalist web framework for Node 
 const app = express();		// Initiate Express application
-const router = express.Router();
+const router = express.Router();	// Create a new router object
 const mongoose = require('mongoose');    // Node tool for MongoDB
 const config = require('./config/database');	// Mongoose config
-const path = require('path');	// Node package for file path
-const authentication = require('./routes/authentication')(router);
-const bodyParser = require('body-parser');
+const path = require('path');	// NodeJS package for file path
+const authentication = require('./routes/authentication')(router);	// Import authentication routes
+const bodyParser = require('body-parser');	// Parse incoming request bodies in a middleware before your handlers, available under the req.body property
+const cors = require('cors');
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -21,11 +22,12 @@ mongoose.connect(config.uri, (err) => {
 	};
 });
 
-// Provide static directory for frontend
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
+// Middleware
+app.use(cors({
+	origin: 'http://localhost:4200'
+}));
+app.use(bodyParser.urlencoded({ extended: false }));  // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());  // parse application/json
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/authentication', authentication);
 
