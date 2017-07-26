@@ -6,10 +6,27 @@ import 'rxjs/add/operator/map';
 export class AuthService {
 
   domain = "http://localhost:8080";
+  authToken;
+  user;
+  options;
 
   constructor(
   	private http: Http
   	) { }
+
+  createAuthenticationHeaders() {
+  	this.loadToken();
+  	this.options = new RequestOptions({
+  		headers: new Headers({
+  			'Content-Type': 'application/json',
+  			'authorization': this.authToken
+  		})
+  	})
+  }
+
+  loadToken() {
+  	this.authToken = localStorage.getItem('token');
+  }
 
   // Function to rigister user accounts
   registerUser(user) {
@@ -31,5 +48,16 @@ export class AuthService {
   	return this.http.post(this.domain + '/authentication/login', user).map(res => res.json());
   }
 
+  storeUserData(token, user) {
+  	localStorage.setItem('token', token);
+  	localStorage.setItem('user', JSON.stringify(user));
+  	this.authToken = token;
+  	this.user = user; 
+  }
+
+  getProfile() {
+  	this.createAuthenticationHeaders();
+  	return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
+  }
 
 }

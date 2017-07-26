@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
 	message;
     messageClass;
     processing = false;
+    token;
 
   constructor(
   	private formBuilder: FormBuilder, 
@@ -48,21 +49,22 @@ export class LoginComponent implements OnInit {
       password: this.form.get('password').value
     }
 
-    // this.authservice.loginUser(user).subscribe(data => {
-    //   // Response from regestration attempt
-    //   if (!data.success){
-    //     this.messageClass = 'alert alert-danger';
-    //     this.message = data.message;
-    //     this.processing = false;
-    //     this.enableForm();
-    //   } else{
-    //     this.messageClass = 'alert alert-success';
-    //     this.message = data.message;
-    //     setTimeout(() => {
-    //       this.router.navigate(['/login']);
-    //     }, 2000)   // After register, redirect to login page in 2s
-    //   }
-    // });
+    this.authservice.loginUser(user).subscribe(data => {
+      // Response from login attempt
+      if (!data.success){
+        this.messageClass = 'alert alert-danger';
+        this.message = data.message;
+        this.processing = false;
+        this.enableForm();
+      } else{
+        this.messageClass = 'alert alert-success';
+        this.message = data.message;
+        this.authservice.storeUserData(data.token, data.user);
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 2000);
+      }
+    });
   }
 
   ngOnInit() {
