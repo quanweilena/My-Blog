@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/quanweilena/My-Blog#readme",
   "dependencies": {
+    "angular2-flash-messages": "^1.0.8",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",

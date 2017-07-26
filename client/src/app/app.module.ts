@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms'; 
 import { HttpModule } from '@angular/http';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 
 import { AppComponent } from './app.component';
@@ -30,7 +31,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    FlashMessagesModule
   ],
   providers: [
     AuthService
