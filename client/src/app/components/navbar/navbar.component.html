@@ -18,9 +18,13 @@
             <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/dashboard">Dashboard</a></li>
             <li><a href="#contact">Profile</a></li>
             <li><a href="#contact">Blog</a></li>
-            <li><a href="#contact">Login</a></li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a routerLink="/login">Login</a>
+            </li>
             <li><a href="#contact">Logout</a></li>
-            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/register">Register</a></li>
+            <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+              <a routerLink="/register">Register</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

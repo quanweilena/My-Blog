@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component'
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const appRoutes: Routes = [
@@ -15,6 +16,10 @@ const appRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent    // The register route
+  },
+  {
+    path: 'login',
+    component: LoginComponent    // The register route
   },
   { path: '**', 
     component: HomeComponent     // The "Catch-All" route

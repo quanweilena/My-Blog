@@ -85,5 +85,32 @@ module.exports = (router) => {
 		}
 	});
 
+	router.post('/login', (req,res) => {
+		if (!req.body.username) {
+			res.json({success: false, message: 'You must provide a username'});
+		} else {
+			if (!req.body.password) {
+				res.json({success: false, message: 'You must enter your password'});
+			} else {
+				User.findOne({username: req.body.username.toLowerCase()}, (err, user) => {
+					if (err) {
+						res.json({success: false, message: err});
+					} else {
+						if (!user) {
+							res.json({success: false, message: 'Username does not exist'})
+						} else {	
+							const validPassword = user.comparePassword (req.body.password);
+							if (!validPassword) {
+								res.json({success: false, message: 'Password does not match'})
+							} else {
+								res.json({success: true, message: 'Success!'});
+							}
+						}
+					}
+				})
+			}
+		}
+	})
+
 	return router;
 }

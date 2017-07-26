@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     private authservice: AuthService,
     private router: Router
   	){ 
-  		this.createForm()
+  		this.createForm();  // Create Angular 2 Form when component loads
   }
 
   createForm() {
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
   			Validators.minLength(3),
   			Validators.maxLength(15),
   			this.validateUsername
-  			])],     // Set default value
+  			])],     
   		email: ['', Validators.compose([
   			Validators.required,
   			Validators.minLength(5),
@@ -113,6 +113,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.authservice.registerUser(user).subscribe(data => {
+      // Response from regestration attempt
       if (!data.success){
         this.messageClass = 'alert alert-danger';
         this.message = data.message;
@@ -123,7 +124,7 @@ export class RegisterComponent implements OnInit {
         this.message = data.message;
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 2000)   // After register, redirect after 2s
+        }, 2000)   // After register, redirect to login page in 2s
       }
     });
   };
