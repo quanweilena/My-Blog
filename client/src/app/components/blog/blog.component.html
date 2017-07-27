@@ -6,7 +6,7 @@
 	</div>
 </div> 
 
-<button type="button" name="button" class="btn btn-danger" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+<button type="button" name="button" class="btn btn-danger" *ngIf="!newPost" (click)="newBlogForm()"><span class="glyphicon glyphicon-plus">&nbsp;</span>New Post</button>
 <button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><span class="glyphicon glyphicon-repeat">&nbsp;</span>Reload</button>
 
 <br><br><br>
@@ -49,29 +49,32 @@
 
 
 <div *ngIf="!newPost">
-	<div class="panel panel-primary">
+	<div class="panel panel-primary" *ngFor="let blog of blogPosts">
 		<div class="panel-heading">
-			<h3 class="panel-title">Post Title</h3>
+			<h3 class="panel-title">{{ blog.title }}</h3>
 		</div>
 		<div class="panel-body">
-			Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+			{{ blog.body }}
 		</div>
 		<!-- Footer start -->
 		<div class="panel-footer">
-			<strong>Posted by: </strong>Lena
-			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-			<strong>Date: </strong>July 26, 2017
-			<div>
-				<strong><span class="glyphicon glyphicon-thumbs-up"></span>: </strong>25 
-				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-				<strong><span class="glyphicon glyphicon-thumbs-down"></span>: </strong>0
+			<strong>Posted by: </strong>{{ blog.createdBy }}
+			<br>
+			<strong>Date: </strong>{{ blog.createdAt | date:'MMM dd, yyyy' }}
+			<div *ngIf=" username === blog.createdBy">
+				<strong>Likes: </strong>{{blog.likes}} 
+				<br>
+				<strong>Dislikes: </strong>{{blog.dislikes}}
+				<br>
 			</div>
-			<a href="#" type="button" name="button" class="btn btn-sm btn-primary">Edit</a>
-			<a href="#" type="button" name="button" class="btn btn-sm btn-warning">Delete</a>
+			
+			<a [routerLink]="['/edit-blog/', blog._id]" *ngIf=" username === blog.createdBy" type="button" name="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-pencil">&nbsp;</span>Edit</a>
+			<a [routerLink]="['/delete-blog/', blog._id]" *ngIf=" username === blog.createdBy" type="button" name="button" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-trash">&nbsp;</span>Delete</a>
+			<br *ngIf=" username !== blog.createdBy">
 			<!-- Likes Dropdown -->
 			<div class="dropdown">
-				<button type="button" name="button" class="btn btn-sm btn-success">
-					<span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: 21
+				<button *ngIf=" username !== blog.createdBy" type="button" name="button" class="btn btn-sm btn-success">
+					<span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: {{blog.likes}}
 				</button>
 				<div class="dropdown-content">
 					<a href="#">lena</a>
@@ -81,8 +84,8 @@
 			</div>
 			<!-- Dislikes Dropdown -->
 			<div class="dropdown">
-				<button type="button" name="button" class="btn btn-sm btn-danger">
-					<span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: 21
+				<button *ngIf=" username !== blog.createdBy" type="button" name="button" class="btn btn-sm btn-danger">
+					<span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: {{blog.dislikes}}
 				</button>
 				<div class="dropdown-content">
 					<a href="#">lena</a>
@@ -95,7 +98,7 @@
 
 		<ul class="list-group">
 			<li class="list-group-item">
-				<button type="button" name="button" class="btn btn-sm btn-info">Post Comment</button>
+				<button type="button" name="button" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-comment">&nbsp;</span>Comments</button>
 				<br>
 <!-- 				<form>
 					<textarea name="comment" rows="10" cols="30" class="form-control"></textarea>

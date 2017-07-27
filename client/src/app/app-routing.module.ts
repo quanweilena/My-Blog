@@ -8,6 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotAuthGuard } from './guards/notAuth.guard';
+import { EditBlogComponent } from './components/blog/edit-blog/edit-blog.component';
 
 const appRoutes: Routes = [
   { path: '',   
@@ -35,6 +36,11 @@ const appRoutes: Routes = [
   {
     path: 'blog',
     component: BlogComponent,    // The register route
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-blog/:id',
+    component: EditBlogComponent,    // The register route
     canActivate: [AuthGuard]
   },
   { path: '**', 

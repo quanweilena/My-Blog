@@ -3,9 +3,9 @@
   <h1>My Blog</h1>
   <p class="lead">Welcome to this MEAN Stack App by <strong>Dan Zhou</strong></p>
   <div>
-    <a routerLink="/register" class="btn btn-primary">Register</a>
-    <a routerLink="/login" class="btn btn-default">Login</a>
-    <!-- <a *ngIf="authService.loggedIn()" routerLink="/blog" class="btn btn-success">View Blogs</a> -->
+    <a *ngIf="!authservice.loggedIn()" routerLink="/login" class="btn btn-warning"><span class="glyphicon glyphicon-user">&nbsp;</span>Login</a>
+    <a *ngIf="!authservice.loggedIn()" routerLink="/register" class="btn btn-primary">Register</a>
+    <a *ngIf="authservice.loggedIn()" routerLink="/blog" class="btn btn-success">View Blogs</a>
   </div>
 </div>
 
