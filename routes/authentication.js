@@ -116,7 +116,7 @@ module.exports = (router) => {
 	});
 
 
-	// Anything that requires authorization go after this part
+	// Middleware - used to grab user's token from header. Anything that requires authorization go after this part
 	router.use((req,res,next) => {
 		const token = req.headers['authorization'];
 		if (!token) {

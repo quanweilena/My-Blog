@@ -1,0 +1,110 @@
+<h2 class="page-header">Blog Feed</h2>
+
+<div class="row show-hide-message" *ngIf="message && newPost ">
+	<div [ngClass]="messageClass">
+		{{message}}
+	</div>
+</div> 
+
+<button type="button" name="button" class="btn btn-danger" *ngIf="!newPost" (click)="newBlogForm()">New Post</button>
+<button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><span class="glyphicon glyphicon-repeat">&nbsp;</span>Reload</button>
+
+<br><br><br>
+
+<!-- NEW Blog Form -->
+<form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+	<!-- Title Input -->
+	<div class="form-group">
+		<label for="title">Title</label>
+		<div [ngClass]="{ 'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors }">
+			<input type="text" name="title" class="form-control" placeholder="*Blog Title" autocomplete="off" formControlName="title">
+			<ul class="help-block">
+				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required ">This field is required</li>
+				<li *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength)||(form.controls.title.dirty && form.controls.title.errors?.maxlength) ">Title must be at least 5 characters but no more than 50</li>
+				<li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation ">Title must be alphanumeric</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Body Input -->
+	<div class="form-group">
+		<label for="body">Body</label>
+		<div [ngClass]="{ 'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors }">
+			<textarea rows="5" cols="50" type="text" name="body" class="form-control" placeholder="*Blog Body" autocomplete="off" formControlName="body"></textarea>
+			<ul class="help-block">
+				<li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required ">This field is required</li>
+				<li *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength)||(form.controls.body.dirty && form.controls.body.errors?.maxlength) ">Title must be at least 5 characters but no more than 500</li>
+			</ul>
+		</div>
+	</div>
+
+	<button [disabled]="processing" type="button" name="button" class="btn btn-warning" (click)="goBack()">
+		Go Back
+	</button>
+	<button [disabled]="processing || !form.valid" type="submit" name="button" class="btn btn-success">
+		Submit
+	</button>
+
+</form>
+
+
+<div *ngIf="!newPost">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Post Title</h3>
+		</div>
+		<div class="panel-body">
+			Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+		</div>
+		<!-- Footer start -->
+		<div class="panel-footer">
+			<strong>Posted by: </strong>Lena
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<strong>Date: </strong>July 26, 2017
+			<div>
+				<strong><span class="glyphicon glyphicon-thumbs-up"></span>: </strong>25 
+				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				<strong><span class="glyphicon glyphicon-thumbs-down"></span>: </strong>0
+			</div>
+			<a href="#" type="button" name="button" class="btn btn-sm btn-primary">Edit</a>
+			<a href="#" type="button" name="button" class="btn btn-sm btn-warning">Delete</a>
+			<!-- Likes Dropdown -->
+			<div class="dropdown">
+				<button type="button" name="button" class="btn btn-sm btn-success">
+					<span class="glyphicon glyphicon-thumbs-up">&nbsp;</span>Likes: 21
+				</button>
+				<div class="dropdown-content">
+					<a href="#">lena</a>
+					<a href="#">lily</a>
+					<a href="#">neal</a>
+				</div>
+			</div>
+			<!-- Dislikes Dropdown -->
+			<div class="dropdown">
+				<button type="button" name="button" class="btn btn-sm btn-danger">
+					<span class="glyphicon glyphicon-thumbs-down">&nbsp;</span>Dislikes: 21
+				</button>
+				<div class="dropdown-content">
+					<a href="#">lena</a>
+					<a href="#">lily</a>
+					<a href="#">neal</a>
+				</div>
+			</div>
+		</div>
+		<!-- Footer END -->
+
+		<ul class="list-group">
+			<li class="list-group-item">
+				<button type="button" name="button" class="btn btn-sm btn-info">Post Comment</button>
+				<br>
+<!-- 				<form>
+					<textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
+					<button type="button" name="button" class="btn btn-sm btn-warning">Submit</button>
+					<button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
+				</form> -->
+			</li>
+		</ul>
+
+	</div>
+
+</div>
