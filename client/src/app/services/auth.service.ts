@@ -56,6 +56,7 @@ export class AuthService {
   	localStorage.clear();
   }
 
+// Function to store user's data in client local storage
   storeUserData(token, user) {
   	localStorage.setItem('token', token);
   	localStorage.setItem('user', JSON.stringify(user));
@@ -63,11 +64,13 @@ export class AuthService {
   	this.user = user; 
   }
 
+// Function to get user's profile data
   getProfile() {
   	this.createAuthenticationHeaders();
   	return this.http.get(this.domain + '/authentication/profile', this.options).map(res => res.json());
   }
 
+// Function to check if user is logged in 
 loggedIn() {
   return tokenNotExpired();
 }
