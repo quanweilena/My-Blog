@@ -70,17 +70,68 @@ module.exports = (router) => {
 					if (!blog) {
 						res.json({success: false, message: 'Blog not found'})
 					} else {
-						res.json({success: true, blog: blog})
+						User.findOne({_id: req.decoded.userId}, (err, user) => {
+							if (err) {
+								res.json({success: false, message: err})
+							} else {
+								if (!user) {
+									res.json({success: false, message: 'Unable to authenticate user'})
+								} else {
+									if (user.username !== blog.createdBy) {
+										res.json({success: false, message: 'You are not authorized to edit this blog'})
+									} else {
+										res.json({success: true, blog: blog})
+									}
+								}
+							}
+						})
 					}
 				}
 			})			
 		}
 	})
 
+	router.put('/updateBlog', (req, res) => {
+		if (!req.body._id) {
+			res.json({success: false, message: 'No blog ID provided'})
+		} else {
+			Blog.findOne({_id: req.body._id}, (err, blog) => {
+				if (err) {
+					res.json({success: false, message: 'Not a valid blog ID'})
+				} else {
+					if (!blog) {
+						res.json({success: false, message: 'Blog Id wa not found'})
+					} else {
+						User.findOne({_id: req.decoded.userId}, (err, user) => {
+							if (err) {
+								res.json({success: false, message: err})
+							} else {
+								if (!user) {
+									res.json({success: false, message: 'Unable to authenticate user'})
+								} else {
+									if (user.username !== blog.createdBy) {
+										res.json({success: false, message: 'You are not authorized to edit this blog'})
+									} else {
+										blog.title = req.body.title;
+										blog.body = req.body.body;
+										blog.save((err) => {
+											if (err) {
+												res.json({success: false, message: err})
+											} else {
+												res.json({success: true, message: 'Blog updated!'})
+											}
+										})
+									}
+								}
+							}
+						})
+					}
+				}
+			})
+		}
+	});
+
 	return router;
 };
 
-					// likes: req.body.likes,
-					// likedBy: req.body.likedBy,
-					// dislikes: req.body.dislikes,
-					// dislikedBy: req.body.dislikedBy,
+				
