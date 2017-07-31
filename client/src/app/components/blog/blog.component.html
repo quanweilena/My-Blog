@@ -6,7 +6,7 @@
 	</div>
 </div> 
 
-<button type="button" name="button" class="btn btn-danger" *ngIf="!newPost" (click)="newBlogForm()"><span class="glyphicon glyphicon-plus">&nbsp;</span>New Post</button>
+<button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="newBlogForm()"><span class="glyphicon glyphicon-plus">&nbsp;</span>New Post</button>
 <button [disabled]="loadingBlogs" type="button" name="button" class="btn btn-default" *ngIf="!newPost" (click)="reloadBlogs()"><span class="glyphicon glyphicon-repeat">&nbsp;</span>Reload</button>
 
 <br><br><br>
@@ -95,14 +95,39 @@
 
 		<ul class="list-group">
 			<li class="list-group-item">
-				<button type="button" name="button" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-comment">&nbsp;</span>Comments</button>
+				<button type="button" name="button" class="btn btn-sm btn-info" (click)="draftComment(blog._id)" [disabled]="newComment.indexOf(blog._id) > -1"><span class="glyphicon glyphicon-comment">&nbsp;</span>Post Comments</button>
 				<br>
-<!-- 				<form>
-					<textarea name="comment" rows="10" cols="30" class="form-control"></textarea>
-					<button type="button" name="button" class="btn btn-sm btn-warning">Submit</button>
-					<button type="button" name="button" class="btn btn-sm btn-danger">Cancel</button>
-				</form> -->
-			</li>
+				<div *ngIf="newComment.indexOf(blog._id) > -1">
+					<form [formGroup]="commentForm">
+						<textarea name="comment" rows="5" cols="30" class="form-control" formControlName='comment'></textarea>
+						<div [ngClass]="{'has-success': !commentForm.controls.comment.errors && commentForm.controls.comment.dirty, 'has-error': commentForm.controls.comment.errors && commentForm.controls.comment.dirty}">
+							<ul class="help-block">
+								<li *ngIf="commentForm.controls.comment.errors?.required && commentForm.controls.comment.dirty">This field is required</li>
+								<li *ngIf="(commentForm.controls.comment.errors?.maxlength && commentForm.controls.comment.dirty) || (commentForm.controls.comment.errors?.minlength && commentForm.controls.comment.dirty) ">Comment must be at least 1 character but no more than 200</li>
+							</ul>
+						</div>
+						<button [disabled]="!commentForm.valid || processing " type="submit" name="button" class="btn btn-sm btn-warning" (click)="postComment(blog._id)">Submit</button>
+						<button [disabled]="processing" type="button" name="button" class="btn btn-sm btn-danger" (click)="cancelSubmission(blog._id)">Cancel</button>
+					</form>
+				</div>
+				<li class="list-group-item" *ngIf="enabledComments.indexOf(blog._id) === -1 && blog.comments.length > 0">
+					<span (click)="expand(blog._id)">
+						Show Comments&nbsp;&nbsp;
+						<div class="glyphicon glyphicon-chevron-down"></div>
+					</span>
+				</li>
+				<li class="list-group-item" *ngIf="enabledComments.indexOf(blog._id) > -1">
+					<span (click)="collapse(blog._id)">
+						Hide Comments&nbsp;&nbsp;
+						<div class="glyphicon glyphicon-chevron-up"></div>
+					</span>
+				</li>
+				<div *ngIf="enabledComments.indexOf(blog._id) > -1">
+					<li class="list-group-item" *ngFor="let comment of blog.comments">
+						<strong>{{comment.commentator}}:</strong>{{comment.comment}}
+					</li>
+				</div>
+			<!-- </li> -->
 		</ul>
 
 	</div>
