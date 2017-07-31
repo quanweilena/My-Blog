@@ -147,5 +147,23 @@ module.exports = (router) => {
 		})
 	})
 
+	router.get('/publicProfile/:username', (req, res) => {
+		if (!req.params.username) {
+			res.json({success: false, message: 'No username was provided'})
+		} else {
+			User.findOne({username: req.params.username}).select('username email').exec((err, user) => {
+				if (err) {
+					res.json({success: false, message: err})
+				} else {
+					if (!user) {
+						res.json({success: false, message: 'User not found'})
+					} else {
+						res.json({success: true, user: user})
+					}
+				}
+			})
+		}
+	})
+
 	return router;
 }
