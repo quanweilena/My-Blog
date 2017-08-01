@@ -72,4 +72,13 @@ export class BlogService {
     return this.http.post(this.domain + 'blogs/comment', blogData, this.options).map(res => res.json());
   }
 
+  deleteComment(id, index) {
+    this.createAuthenticationHeaders();
+    const blogData = {
+      id: id,
+      index: index
+    }
+    return this.http.put(this.domain + 'blogs/deleteComment/', blogData, this.options).map(res => res.json());
+  }
+
 }

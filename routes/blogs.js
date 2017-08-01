@@ -330,6 +330,36 @@ module.exports = (router) => {
 		}
 	})
 
+	router.put('/deleteComment', (req, res) => {
+		if (!req.body.id) {
+			res.json({success: false, message: 'No blog id privided'})
+		} else {
+			Blog.findOne({_id: req.body.id}, (err, blog) => {
+				if (err) {
+					res.json({success: false, message: 'Invalid blog id'})
+				} else {
+					if (!blog) {
+						res.json({success: false, message: 'Blog was not found'})
+					} else {
+						User.findOne({_id: req.decoded.userId}, (err, user) => {
+							if (err) {
+								res.json({success: false, message: err})
+							} else {
+								if (!user) {
+									res.json({success: false, message: 'Unable to authenticate user'})
+								} else {
+									blog.comments.splice(req.body.index, 1);
+									blog.save();
+									res.json({success: true, message: 'Comment deleted!'})
+								}
+							}
+						})
+					}
+				}
+			})
+		}
+	})
+
 
 	return router;
 };

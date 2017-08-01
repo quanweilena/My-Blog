@@ -123,8 +123,9 @@
 					</span>
 				</li>
 				<div *ngIf="enabledComments.indexOf(blog._id) > -1">
-					<li class="list-group-item" *ngFor="let comment of blog.comments">
+					<li class="list-group-item" *ngFor="let comment of blog.comments; let i = index" [attr.data-index]="i">
 						<strong>{{comment.commentator}}:</strong>{{comment.comment}}
+						<a type="button" class="pull-right" (click)="deleteComment(blog._id, i)" *ngIf="comment.commentator === blog.createdBy || comment.commentator === username">&times;</a>
 					</li>
 				</div>
 			<!-- </li> -->

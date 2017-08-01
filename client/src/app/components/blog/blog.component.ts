@@ -179,6 +179,20 @@ export class BlogComponent implements OnInit {
     })
   }
 
+  deleteComment(id, index) {
+    this.disableCommentForm();
+    this.processing = true;
+    this.blogService.deleteComment(id, index).subscribe( data => {
+      this.getAllBlogs();
+      this.commentForm.reset();
+      this.processing = false;
+      this.enableCommentForm();
+      if (this.enabledComments.indexOf(id) < 0) {
+        this.expand(id);
+      }
+    })
+  }
+
   expand(id) {
     this.enabledComments.push(id);
   }
