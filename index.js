@@ -12,6 +12,7 @@ const authentication = require('./routes/authentication')(router);	// Import aut
 const blogs = require('./routes/blogs')(router);
 const bodyParser = require('body-parser');	// Parse incoming request bodies in a middleware before your handlers, available under the req.body property
 const cors = require('cors');
+const port = process.env.PORT || 8080;
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -29,16 +30,16 @@ app.use(cors({
 }));
 app.use(bodyParser.urlencoded({ extended: false }));  // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());  // parse application/json
-app.use(express.static(__dirname + '/client/dist/'));
+app.use(express.static(__dirname + '/public'));
 app.use('/authentication', authentication);
 app.use('/blogs', blogs);
 
 // Connect server to Angular 2 index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/dist/index.html'));
+  res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 // Start server: Listening on port 8080
-app.listen(8080, () => {
-	console.log('Listening on port 8080');
+app.listen(port, () => {
+	console.log('Listening on port ' + port);
 });

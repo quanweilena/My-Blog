@@ -15,3 +15,5 @@ My Blog is a MEAN stack (MongoDB, ExpressJS, Angular 2, NodeJS) Single Page Appl
 3. Install the required packages: ```npm install ```
 4. Go into the client directory: ```cd client```
 5. Install Angular 2 required packages: ```npm install```
+6. Go back to the main directory: ```cd ..```
+7. 
