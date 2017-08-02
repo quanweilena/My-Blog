@@ -24,9 +24,9 @@ My Blog is a MEAN stack (MongoDB, ExpressJS, Angular 2, NodeJS) Single Page Appl
 
 ### Register
 
-	* Automatically display help hint (if username or email is available; if username, email or password meets the criteria);
-	* The 'Submit' button is only enabled if all the fields are filled satisfactorily;
-	* Automatically display message when successfully registered and redirect to Login page after 2s.
+* Automatically display help hint (if username or email is available; if username, email or password meets the criteria);
+* The 'Submit' button is only enabled if all the fields are filled satisfactorily;
+* Automatically display message when successfully registered and redirect to Login page after 2s.
 
 ### Login
 
