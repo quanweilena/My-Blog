@@ -30,49 +30,49 @@ My Blog is a MEAN stack (MongoDB, ExpressJS, Angular 2, NodeJS) Single Page Appl
 
 ### Login
 
-	* Users can log into existing accounts using only correct match of username and password;
-	* Automatically display message when successfully logged in and redirect to Blog page after 2s.
+* Users can log into existing accounts using only correct match of username and password;
+* Automatically display message when successfully logged in and redirect to Blog page after 2s.
 
 ### Profile
 
-	* Users can access their profile after logged in by clicking 'Profile' on the navigation bar.
+* Users can access their profile after logged in by clicking 'Profile' on the navigation bar.
 
 ### Post Blogs
 
-	* User can create a new blog by clicking 'NEW POST' on Blog page;  
-	* Blog title and body are required when creating a new blog.  Help hints will be displayed when needed;
-	* User can discard a new post anytime by clicking 'GO BACK';
-	* Message is shown when successfully post a new blog;
-	* Automatically redirect to Blog page after posting; 
-	* Creator and post date are also displayed for each post.
+* User can create a new blog by clicking 'NEW POST' on Blog page;  
+* Blog title and body are required when creating a new blog.  Help hints will be displayed when needed;
+* User can discard a new post anytime by clicking 'GO BACK';
+* Message is shown when successfully post a new blog;
+* Automatically redirect to Blog page after posting; 
+* Creator and post date are also displayed for each post.
 
 ### Edit Blogs
 
-	* The blog creater can edit his/her own blogs when logged in by clicking the 'EDIT' button;
-	* Both title and body can be edited;
-	* Click 'SAVE CHANGES' to confirm changes; 
-	* Click 'GO BACK' to discard changes;
-	* Click 'Delete' to delete the blog.
+* The blog creater can edit his/her own blogs when logged in by clicking the 'EDIT' button;
+* Both title and body can be edited;
+* Click 'SAVE CHANGES' to confirm changes; 
+* Click 'GO BACK' to discard changes;
+* Click 'Delete' to delete the blog.
 
 ### Delete Blogs
 
-	* The blog creater can delete his/her own blogs when logged in by clicking the 'DELETE' button;
-	* A confirm window is displayed, click 'YES' to confirm or 'NO' to cancel;
-	* The blog is also displayed below the confirm window for the user.
+* The blog creater can delete his/her own blogs when logged in by clicking the 'DELETE' button;
+* A confirm window is displayed, click 'YES' to confirm or 'NO' to cancel;
+* The blog is also displayed below the confirm window for the user.
 
 ### Like/Dislike Blogs
 
-	* User can only like/dislike other users' blog by clicking 'LIKE'/'DISLIKE' button;
-	* User can only either like or dislike a certain blog;
-	* The numbers of likes and dislikes are displayed;
-	* When hover on the 'LIKE'/'DISLIKE' button, a list of likers/dislikers is displayed below the button. By clicking the username in this list, user can access the public profile of that liker/disliker.
+* User can only like/dislike other users' blog by clicking 'LIKE'/'DISLIKE' button;
+* User can only either like or dislike a certain blog;
+* The numbers of likes and dislikes are displayed;
+* When hover on the 'LIKE'/'DISLIKE' button, a list of likers/dislikers is displayed below the button. By clicking the username in this list, user can access the public profile of that liker/disliker.
 
 ### Comments
 
-	* Users can post comments on any blogs by clicking 'POST COMMENT' button;
-	* Users can choose to show/hide comments;
-	* The blog creator can delete any comment for his/her own blogs;
-	* Users can delete their own comments.
+* Users can post comments on any blogs by clicking 'POST COMMENT' button;
+* Users can choose to show/hide comments;
+* The blog creator can delete any comment for his/her own blogs;
+* Users can delete their own comments.
 
 ## Authors
 
