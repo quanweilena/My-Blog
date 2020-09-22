@@ -15,14 +15,7 @@ const cors = require('cors');
 const port = process.env.PORT || 8080;
 
 // Database connection
-mongoose.Promise = global.Promise;
-mongoose.connect(config.uri, (err) => {
-	if (err) {
-		console.log('Could NOT connect to database: ', err);
-	} else {
-		console.log('Connected to database: ' + config.db);
-	};
-});
+mongoose.connect('mongodb+srv://quanweilena:19911221@myblog-danzhou.8zlqb.mongodb.net/myblog-danzhou?retryWrites=true&w=majority', {dbName: 'myblog-danzhou'});
 
 // Middleware
 app.use(cors({
