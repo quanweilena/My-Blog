@@ -6,7 +6,6 @@ const express = require('express');		// Fast, unopinionated, minimalist web fram
 const app = express();		// Initiate Express application
 const router = express.Router();	// Create a new router object
 const mongoose = require('mongoose');    // Node tool for MongoDB
-const config = require('./config/database');	// Mongoose config
 const path = require('path');	// NodeJS package for file path
 const authentication = require('./routes/authentication')(router);	// Import authentication routes
 const blogs = require('./routes/blogs')(router);
